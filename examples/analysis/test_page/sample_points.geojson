@@ -1,0 +1,85 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": { "name": "Point 1" },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-123.1207, 49.2827]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": { "name": "Point 2" },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-123.1140, 49.2609]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": { "name": "Point 3" },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-122.8469, 49.1913]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": { "name": "Point 4" },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-123.0335, 49.2488]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": { "name": "Point 5" },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-123.1010, 49.1666]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": { "name": "Point 6" },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-122.8000, 49.2846]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": { "name": "Point 7" },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-123.1402, 49.3152]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": { "name": "Point 8" },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-123.2060, 49.2334]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": { "name": "Point 9" },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-122.6750, 49.1100]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": { "name": "Point 10" },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-123.0351, 49.1044]
+        }
+      }
+    ]
+  }

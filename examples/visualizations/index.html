@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Leaflet Map with H3 Grid</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    /* Set full height for the map */
+    #map { height: 100vh; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <!-- H3 JS Library -->
+  <script src="https://unpkg.com/h3-js@3.7.2/dist/h3-js.umd.js"></script>
+  
+  <script>
+    // Initialize the map (centered on San Francisco)
+    var map = L.map('map').setView([37.7749, -122.4194], 12);
+    
+    // Add OpenStreetMap tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+    
+    // Define a GeoJSON polygon (GeoJSON coordinates are in [longitude, latitude])
+    var polygonGeoJson = {
+      "type": "Polygon",
+      "coordinates": [[
+        [-122.5247, 37.7081],
+        [-122.3550, 37.7081],
+        [-122.3550, 37.8324],
+        [-122.5247, 37.8324],
+        [-122.5247, 37.7081]
+      ]]
+    };
+    
+    // Choose an H3 resolution (adjust this value as needed)
+    var resolution = 9;
+    // Use h3.polyfill to get an array of H3 indices covering the polygon
+    var hexagons = h3.polyfill(polygonGeoJson, resolution);
+    
+    // For each H3 hexagon, get its boundary and add it as a polygon on the map
+    hexagons.forEach(function(hex) {
+      // h3.h3ToGeoBoundary returns an array of [lat, lng] points when the second parameter is true
+      var boundary = h3.h3ToGeoBoundary(hex, true);
+      // Create a Leaflet polygon for the hexagon
+      L.polygon(boundary, {color: 'blue', weight: 1}).addTo(map);
+    });
+  </script>
+</body>
+</html>
