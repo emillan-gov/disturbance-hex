@@ -8,7 +8,7 @@ L.tileLayer('http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}', {
 
 // === Globals ===
 // const test_points = "caribou.geojson";
-const test_points = "sample_points.geojson";
+const test_points = "../../../data/GSR_SKI_RESORTS_SV.geojson";
 const admin_polys = "nr_areas.geojson";
 const hexLayerGroup = L.layerGroup().addTo(map);
 const hexLabelGroup = L.layerGroup().addTo(map);
