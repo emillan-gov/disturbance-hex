@@ -9,6 +9,8 @@ L.tileLayer('http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}', {
 // === Globals ===
 // const test_points = "caribou.geojson";
 const test_points = "../../../data/GSR_SKI_RESORTS_SV.geojson";
+// const test_points = "../../../data/GSR_GOLF_RESORTS_SV.geojson";
+// const test_points = "../../../data/BTM_Land_Use_Recreation_Areas.geojson";
 const admin_polys = "nr_areas.geojson";
 const hexLayerGroup = L.layerGroup().addTo(map);
 const hexLabelGroup = L.layerGroup().addTo(map);
@@ -19,6 +21,25 @@ let showHexLabels = false;
 let geojsonLayer;
 let adminGeoJSON = null;
 let allFeatures = [];
+
+const resolutionDescriptions = {
+  0: "Cell size: ~4.35 Million km² (1/2 the Size of Canada)",
+  1: "Cell size: ~610,000 km² (Size of France)",
+  2: "Cell size: ~87,000 km² (Size of Austria)",
+  3: "Cell size: ~12,000 km² (3 Luxembourgs)",
+  4: "Cell size: ~1,770 km² (1/3 of Prince Edward Island)",
+  5: "Cell size: ~250 km² (1/2 of Pacific Rim National Park)",
+  6: "Cell size: ~3,600 Hectares (2.5 University Endowment Lands)",
+  7: "Cell size: ~500 Hectares (Stanley Park)",
+  8: "Cell size: ~73 Hectares (P&E Fairgrounds)",
+  9: "Cell size: ~10.5 Hectares (14 Full Soccer Fields)",
+  10: "Cell size: ~1.5 Hectares (2 CAF Football Fields)",
+  11: "Cell size: ~0.2 Hectares (Standard Suburban Home Lot)",
+  12: "Cell size: ~300 m² (Single Family Home)",
+  13: "Cell size: ~45 m² (Small Bedroom)",
+  14: "Cell size: ~6 m² (Twin Bed)",
+  15: "Cell size: ~1 m² (Floor Lamp)"
+};
 
 // === Compute Mean and Standard Deviation ===
 function computeStats(h3Counts) {
@@ -100,7 +121,9 @@ function drawAggregatedH3(h3Counts) {
 function updateAggregation(resolution) {
   const h3Counts = aggregatePointsByH3(geojsonData, resolution);
   drawAggregatedH3(h3Counts);
+
   document.getElementById('resolution-value').innerText = resolution;
+  document.getElementById('resolution-message').innerText = resolutionDescriptions[resolution] || "Unknown resolution";
 }
 
 function debounce(func, delay) {
@@ -132,6 +155,7 @@ fetch(test_points)
 
     const resolutionInput = document.getElementById('resolution');
     const resolutionDisplay = document.getElementById('resolution-value');
+    const resolutionMessage = document.getElementById('resolution-message');
     const initialResolution = parseInt(resolutionInput.value);
 
     updateAggregation(initialResolution);
@@ -140,16 +164,17 @@ fetch(test_points)
 
     resolutionInput.addEventListener('input', (e) => {
       const newRes = parseInt(e.target.value);
-      resolutionDisplay.innerText = newRes;
       debouncedUpdate(newRes);
     });
 
     const labelToggle = document.getElementById('showHexIds');
-    labelToggle.addEventListener('change', (e) => {
-      showHexLabels = e.target.checked;
-      const currentRes = parseInt(resolutionInput.value);
-      updateAggregation(currentRes);
-    });
+    if (labelToggle) {
+      labelToggle.addEventListener('change', (e) => {
+        showHexLabels = e.target.checked;
+        const currentRes = parseInt(resolutionInput.value);
+        updateAggregation(currentRes);
+      });
+    }
   })
   .catch(error => {
     console.error('Error loading GeoJSON data:', error);

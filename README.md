@@ -20,3 +20,4 @@ H3 is especially useful in geospatial workflows for:
 - **GeoJSON-friendly**: Easy to integrate with GIS tools.
 
 ---
+
