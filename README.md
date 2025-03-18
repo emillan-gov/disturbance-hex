@@ -20,4 +20,13 @@ H3 is especially useful in geospatial workflows for:
 - **GeoJSON-friendly**: Easy to integrate with GIS tools.
 
 ---
+## Architecture 
+Github Pages only allows client side, static content so currently there is no 
+opportunity to create more complex applications. As a result, this repo contains
+a simplified data repository with publicly available data and basic html, css
+and javascript content. 
 
+H3 was created in C but has bindings in many languages including python, so it
+might be appropriate to use in flask applications in the government openshift 
+env.
+--
