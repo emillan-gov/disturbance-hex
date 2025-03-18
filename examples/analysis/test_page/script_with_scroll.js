@@ -4,14 +4,12 @@ L.tileLayer('http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}', {
   maxZoom: 18
 }).addTo(map);
 
-
-
 // === Globals ===
 // const test_points = "caribou.geojson";
 const test_points = "../../../data/GSR_SKI_RESORTS_SV.geojson";
 // const test_points = "../../../data/GSR_GOLF_RESORTS_SV.geojson";
 // const test_points = "../../../data/BTM_Land_Use_Recreation_Areas.geojson";
-const admin_polys = "nr_areas.geojson";
+const admin_polys = "../../../data/NR_AREAS.geojson";
 const hexLayerGroup = L.layerGroup().addTo(map);
 const hexLabelGroup = L.layerGroup().addTo(map);
 const adminBoundaryGroup = L.layerGroup().addTo(map);
@@ -57,9 +55,17 @@ function interpretZScore(z) {
   return "Much lower than average";
 }
 
-function getColorFromZScore(z) {
-  const clampedZ = Math.max(-2, Math.min(3, z));
-  const t = (clampedZ + 2) / 5;
+function getColorFromZScore(z, normalized = true) {
+  // This function builds RBG Values based on the provided Z score in a Red to
+  // yellow Range. 
+  const clampedZ = Math.max(-2, Math.min(3, z)); //This limits z score to range, removing outliers
+
+  if (normalized) {
+    t = (clampedZ + 2) / 5; // Normalize to [0, 1]
+  } else {
+    t = z; // Use raw value (assuming it's already in [0, 1] range)
+  }
+  
   const r = 255;
   const g = Math.round(255 * (1 - t));
   const b = 0;
@@ -88,7 +94,7 @@ function drawAggregatedH3(h3Counts) {
 
   Object.entries(h3Counts).forEach(([h3Index, count]) => {
     const z = stdDev > 0 ? (count - mean) / stdDev : 0;
-    const fillColor = getColorFromZScore(z);
+    const fillColor = getColorFromZScore(z, normalized=true);
     const boundary = h3.cellToBoundary(h3Index, true).map(coord => [coord[1], coord[0]]);
     const center = h3.cellToLatLng(h3Index).reverse();
 
@@ -98,10 +104,16 @@ function drawAggregatedH3(h3Counts) {
       fillColor: fillColor,
       fillOpacity: 0.7
     }).bindPopup(`
-      <b>H3 Cell:</b> ${h3Index}<br>
-      <b>Point Count:</b> ${count}<br>
-      <b>Z-Score:</b> ${z.toFixed(2)}<br>
-      <b>Interpretation:</b> ${interpretZScore(z)}
+      <div style="font-family: 'Helvetica Neue', sans-serif; font-size: 13px; line-height: 1.4; color: #234075;">
+        <h4 style="margin: 0 0 8px 0; font-size: 15px; color: #234075; border-bottom: 1px solid #e3a82b; padding-bottom: 4px;">
+          Cell Info
+        </h4>
+        <div><strong>H3 Cell:</strong> ${h3Index}</div>
+        <div><strong>Point Count:</strong> ${count}</div>
+        <div><strong>Z-Score:</strong> ${z.toFixed(2)}</div>
+        <div><strong>Fill Color:</strong> <span style="color:${fillColor}; font-weight:bold;">${fillColor}</span></div>
+        <div><strong>Interpretation:</strong> ${interpretZScore(z)}</div>
+      </div>
     `);
 
     hexLayerGroup.addLayer(polygon);

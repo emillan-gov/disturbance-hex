@@ -48,3 +48,34 @@ html, body {
     font-family: sans-serif;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
   }
+
+/* Square popup with navy blue border */
+.leaflet-popup-content-wrapper {
+  border: 5px solid #234075;         /* Navy border */
+  border-radius: 10;                  /* Square edges */
+  box-shadow: none;                  /* Remove default shadow */
+  padding: 5;                        /* Optional: tighter spacing */
+}
+
+/* Match popup pointer to border color */
+.leaflet-popup-tip {
+  background: #234075;
+}
+
+/* Main content style */
+.leaflet-popup-content {
+  font-family: 'Helvetica Neue', sans-serif;
+  color: #234075;
+  font-size: 13px;
+  line-height: 1.4;
+  margin: 8px 12px; /* Adjust padding inside the popup */
+}
+
+/* Section heading */
+.leaflet-popup-content h4 {
+  font-size: 15px;
+  color: #234075;
+  border-bottom: 1px solid #e3a82b;
+  margin: 0 0 8px 0;
+  padding-bottom: 4px;
+}
