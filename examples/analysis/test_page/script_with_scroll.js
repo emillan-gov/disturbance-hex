@@ -266,19 +266,5 @@ function getUrlParam(name) {
 
 window.addEventListener("DOMContentLoaded", () => {
   const region = getUrlParam("region");
-  if (region) {
-    const display = document.getElementById("selected-region");
-    if (display) {
-      display.textContent = `Selected Region: ${region}`;
-    }
-
-    // Optionally pre-select the region in the dropdown
-    const dropdown = document.getElementById("regionFilter");
-    if (dropdown) {
-      dropdown.value = region;
-
-      // Trigger the filtering logic as if user selected it manually
-      dropdown.dispatchEvent(new Event('change'));
-    }
-  }
+  console.log(region);
 });
