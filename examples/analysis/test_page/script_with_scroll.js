@@ -1,3 +1,20 @@
+console.log("Script is Running")
+
+window.addEventListener("DOMContentLoaded", () => {
+  console.log("✅ DOM Loaded");
+
+  const region = new URLSearchParams(window.location.search).get("region");
+  console.log("📍 Region param:", region);
+
+  const display = document.getElementById("selected-region");
+  if (display) {
+    display.textContent = `Selected Region: ${region}`;
+    console.log("✅ Text injected into selected-region");
+  } else {
+    console.warn("❌ selected-region element not found");
+  }
+});
+
 // === Initialize Map ===
 const map = L.map('map').setView([49.2827, -123.1207], 14);
 L.tileLayer('http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}', {
