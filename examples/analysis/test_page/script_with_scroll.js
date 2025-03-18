@@ -265,6 +265,7 @@ function getUrlParam(name) {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
+  // Display region
   const region = getUrlParam("region");
   if (region) {
     console.log("📍 Region:", region);
@@ -274,5 +275,11 @@ window.addEventListener("DOMContentLoaded", () => {
       const formatted = region.charAt(0).toUpperCase() + region.slice(1);
       display.textContent = `Selected Region: ${formatted}`;
     }
+  }
+
+  // Display full page source
+  const sourceDisplay = document.getElementById("page-source");
+  if (sourceDisplay) {
+    sourceDisplay.textContent = document.documentElement.innerHTML;
   }
 });
