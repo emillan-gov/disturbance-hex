@@ -266,5 +266,13 @@ function getUrlParam(name) {
 
 window.addEventListener("DOMContentLoaded", () => {
   const region = getUrlParam("region");
-  console.log(region);
+  if (region) {
+    console.log("📍 Region:", region);
+
+    const display = document.getElementById("selected-region");
+    if (display) {
+      const formatted = region.charAt(0).toUpperCase() + region.slice(1);
+      display.textContent = `Selected Region: ${formatted}`;
+    }
+  }
 });
