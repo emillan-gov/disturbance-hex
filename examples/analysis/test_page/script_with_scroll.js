@@ -6,6 +6,12 @@ window.addEventListener("DOMContentLoaded", () => {
   const region = new URLSearchParams(window.location.search).get("region");
   console.log("📍 Region param:", region);
 
+  const hashparams = new URLSearchParams(window.location.hash.slice(1));
+  const searchParam = hashparams.get('widget_7')
+
+  console.log(hashparams)
+  console.log(searchParam)
+
   const display = document.getElementById("selected-region");
   if (display) {
     display.textContent = `Selected Region: ${region}`;
@@ -300,3 +306,5 @@ window.addEventListener("DOMContentLoaded", () => {
     sourceDisplay.textContent = document.documentElement.innerHTML;
   }
 });
+
+
