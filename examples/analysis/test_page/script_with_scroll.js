@@ -28,7 +28,7 @@ L.tileLayer('http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}', {
 }).addTo(map);
 
 // === Globals ===
-// const test_points = "../../../data/CONTROL_POINTS.geojson";
+const test_points = "../../../data/CONTROL_POINTS.geojson";
 // const test_points = "../../../data/GSR_SKI_RESORTS_SV.geojson";
 // const test_points = "../../../data/GSR_GOLF_RESORTS_SV.geojson";
 // const test_points = "../../../data/BTM_Land_Use_Recreation_Areas.geojson";
